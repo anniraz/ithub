@@ -47,12 +47,15 @@ INSTALLED_APPS = [
     'apps.users',
     'apps.favorites',
     'apps.chat',
+    'apps.orders',
 
 
     # filter
     'django_filters',
     #  for chat
     'widget_tweaks',
+    # cors
+    "corsheaders",
 
     
 ]
@@ -60,6 +63,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -140,7 +144,11 @@ USE_I18N = True
 
 USE_TZ = True
 
-
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:3000',
+    'http://localhost:8000',
+    'http://localhost:8080',
+]
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 

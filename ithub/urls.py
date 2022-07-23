@@ -6,6 +6,7 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
 from apps.favorites.views import MyFavoritesApiView
+from apps.orders.views import MyOrdersListApiView,MyOrdersRUDApiView
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -26,7 +27,11 @@ urlpatterns = [
     path('',include('apps.users.urls')),
     path('',include('apps.favorites.urls')),
     path('', include('apps.chat.urls')),
+    path('', include('apps.orders.urls')),
     path('myfavorites/',MyFavoritesApiView.as_view()),
+    path('myorders/',MyOrdersListApiView.as_view()),
+    path('myorders/<int:pk>/',MyOrdersRUDApiView.as_view()),
+   #  path('myorders1/',MyOrdersApiView1.as_view()),
     path('api-auth/', include('rest_framework.urls')),
     # swagger
     path('swagger(?P<format>\.json|\.yaml)', schema_view.without_ui(cache_timeout=0), name='schema-json'),
