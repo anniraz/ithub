@@ -35,9 +35,25 @@ class UserAPIView(generics.ListCreateAPIView):
                 login(request, new_user)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
+class UserLoginApiView(generics.CreateAPIView):
+    serializer_class=LoginSerializer
+    queryset=User.objects.all()
 
+    def post(self, request, *args, **kwargs):
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                login(request, user)
 
+                return Response(status=status.HTTP_201_CREATED)
+        # return super().post(request, *args, **kwargs)
 
+    # def create(self, request, *args, **kwargs):
+        
+
+    #     return super().create(request, *args, **kwargs)
 class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = UserSerializer
     queryset = User.objects.all()

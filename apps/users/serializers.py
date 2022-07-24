@@ -20,7 +20,10 @@ class DeveloperSerializer(serializers.ModelSerializer):
         read_only_fields=('user',)
 
 
-
+class LoginSerializer(serializers.ModelSerializer):
+     class Meta:
+         model=User
+         fields=('username','password') 
    
 
 

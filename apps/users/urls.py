@@ -15,6 +15,7 @@ urlpatterns = [
     path('user/customer/<int:pk>/',CustomerApiView.as_view()),
     path('user/customer/change/<int:pk>/',CustomerRUDApiView.as_view()),
     path('users/detail/<int:pk>/',UserDetail.as_view()),
+    path('user/login/',UserLoginApiView.as_view()),
     path('review/',ReviewCreateView.as_view()),
     # path('profile/',ProfileApiView.as_view()),
 

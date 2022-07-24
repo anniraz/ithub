@@ -144,13 +144,15 @@ USE_I18N = True
 
 USE_TZ = True
 
+CORS_ORIGIN_ALLOW_ALL=True
+
+
 # CORS_ORIGIN_WHITELIST = [
 #     'http://localhost:3000',
 #     'http://localhost:8000',
 #     'http://localhost:8080',
 # ]
 
-CORS_ORIGIN_ALLOW_ALL=True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
