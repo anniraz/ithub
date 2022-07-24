@@ -2,7 +2,7 @@ from django.urls import path
 from . import views
 urlpatterns = [
     path('chat/',views.ChatApiView.as_view()),
-    path('mychat/',views.ChatDetailApiView.as_view())
+    path('chat/<int:pk>/',views.ChatDetailApiView.as_view())
     # URL form : "/api/messages/1/2"
     # path('api/messages/<int:sender>/<int:receiver>', views.message_list, name='message-detail'),  # For GET request.
     # # URL form : "/api/messages/"

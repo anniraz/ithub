@@ -1,10 +1,12 @@
-from rest_framework.routers import DefaultRouter
+from django.urls import path
 
-from apps.orders.views import OrdersApiViewSet
+from apps.orders.views import *
 
-router = DefaultRouter()
-router.register(
-    prefix='orders',
-    viewset=OrdersApiViewSet
-)
-urlpatterns = router.urls
+
+urlpatterns = [
+    path('orders/',OrdersListCreateApiView.as_view()),
+    path('orders/<int:pk>/',OrdersRetriveDestroyApiView.as_view()),
+    path('myorders/',MyOrdersListApiView.as_view()),
+    path('myorders/<int:pk>/',MyOrdersRUDApiView.as_view()),
+    path('myorders/count/',MyOrdersCountApiView.as_view()),
+]

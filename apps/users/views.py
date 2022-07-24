@@ -2,6 +2,7 @@ from rest_framework.response import Response
 from django_filters import rest_framework as filter
 from .service import Paginations, ProductFilter
 from .permissions import *
+
 # Create your views here.
 from rest_framework import viewsets,generics,filters
 
@@ -79,12 +80,27 @@ class DeveloperApiView(generics.ListCreateAPIView):
     # def perform_create(self, serializer):
     #     return serializer.save(user=self.request.user)
 
+class DeveloperRUDApiView(generics.RetrieveUpdateDestroyAPIView):
+    queryset=Developer.objects.all()
+    serializer_class=DeveloperSerializer
+    permission_classes=[IsOwnerOrReadOnly]
+    
+
+    # def perform_create(self, serializer):
+    #     return serializer.save(user=self.request.user)
+
 class CustomerApiView(generics.ListCreateAPIView):
     queryset=Customer.objects.all()
     serializer_class=CustomerSerializer
 
     # def perform_create(self, serializer):
     #     return serializer.save(user=self.request.user)
+
+class CustomerRUDApiView(generics.RetrieveUpdateDestroyAPIView):
+    queryset=Customer.objects.all()
+    serializer_class=CustomerSerializer
+    permission_classes=[IsOwnerOrReadOnly]
+
 
 
 class ReviewCreateView(generics.ListCreateAPIView):

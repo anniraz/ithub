@@ -1,10 +1,9 @@
-from rest_framework.routers import DefaultRouter
+from django.urls import path
 
-from apps.favorites.views import FavoriteApiViewSet
+from apps.favorites.views import *
 
-router = DefaultRouter()
-router.register(
-    prefix='favorites',
-    viewset=FavoriteApiViewSet
-)
-urlpatterns = router.urls
+
+urlpatterns = [
+    path('myfavorites/',MyFavoritesApiView.as_view()),
+    path('myfavorites/<int:pk>/',MyFavoritesRUDApiView.as_view()),
+]

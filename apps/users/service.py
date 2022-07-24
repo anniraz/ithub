@@ -17,7 +17,7 @@ class ProductFilter(filters.FilterSet):
 
 
 class Paginations(PageNumberPagination):
-    page_size=1
+    page_size=12
     max_page_size=1000
 
     def get_paginated_response(self, data):

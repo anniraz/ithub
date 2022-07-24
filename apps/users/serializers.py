@@ -67,8 +67,3 @@ class UserSerializer(serializers.ModelSerializer):
         user.save()
         return user
 
-# class ProfileSerializers(serializers.ModelSerializer):
-#     class Meta:
-#         model=Profile
-#         fields=['profile','profile__username','profile__first_name','profile__last_name','profile__image','profile__group']
-#         # read_only_fields=('profile',)

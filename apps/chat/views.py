@@ -19,24 +19,21 @@ class ChatApiView(generics.ListCreateAPIView):
         user=self.request.user
         return Message.objects.filter(sender=user)
         
-        # return super().get(request, *args, **kwargs)
-class ChatDetailApiView(generics.ListAPIView):
+class ChatDetailApiView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class=MessageSerializer
 
-    # def perform_create(self, serializer):
-    #     return serializer.save(sender=self.request.user)
+    def perform_create(self, serializer):
+        return serializer.save(sender=self.request.user)
 
     def get(self, request, *args, **kwargs):
-        sender = User.objects.get(sender=request.user)
-        receiver = User.objects.get(receiver=request.user)
-        chat_list=Message.objects.filter(sender=sender,receiver=receiver)
+        sender = self.request.user
+        chat_list=Message.objects.filter(sender=sender)
         chat_serial=MessageSerializer(chat_list).data
         return Response(chat_serial)
         
 
 
 
-            # return super().get(request, *args, **kwargs)
 
 
 # lass UserDetail(generics.RetrieveUpdateDestroyAPIView):
