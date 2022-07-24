@@ -1,3 +1,7 @@
+from django.contrib.auth import authenticate,login
+from rest_framework import status
+
+
 from rest_framework.response import Response
 from django_filters import rest_framework as filter
 from .service import Paginations, ProductFilter
@@ -18,33 +22,20 @@ class UserAPIView(generics.ListCreateAPIView):
     search_fields = [ 'username']
     pagination_class=Paginations
 
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        new_user = authenticate(username=request.POST.get('username'),
+            password=request.POST.get('password'),
+            )
+        if new_user is not None:
+            if new_user.is_active:
+                login(request, new_user)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
-# class UserProfile(generics.ListAPIView):
-#     serializer_class = UserSerializer
-#     # queryset = User.objects.all()
 
-    # def get_queryset(self):
-    #     user=self.request.user
-    #     return User.objects.get(user=user)
-
-    # def get(self, request, *args, **kwargs):
-    #     pk = kwargs.get('pk', None)
-    #     user = User.objects.get(id=pk)
-    #     user_serial = UserSerializer(user).data
-    #     reviews = Reviews.objects.filter(auth_id = pk)
-    #     lst = []
-    #     for i in reviews:
-    #         lst.append(i.rating)
-
-    #     rating_sum = sum(lst)
-    #     if len(lst)<=0:
-    #         rating_sum = 'нет отзывов'
-    #     else:
-    #         rating_sum = round(rating_sum / len(lst), 1)
-
-    #     user_serial['Reviews'] = rating_sum
-
-    #     return Response(user_serial)
 
 
 class UserDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -77,8 +68,8 @@ class DeveloperApiView(generics.ListCreateAPIView):
     queryset=Developer.objects.all()
     serializer_class=DeveloperSerializer
 
-    # def perform_create(self, serializer):
-    #     return serializer.save(user=self.request.user)
+    def perform_create(self, serializer):
+        return serializer.save(user=self.request.user)
 
 class DeveloperRUDApiView(generics.RetrieveUpdateDestroyAPIView):
     queryset=Developer.objects.all()
@@ -93,8 +84,8 @@ class CustomerApiView(generics.ListCreateAPIView):
     queryset=Customer.objects.all()
     serializer_class=CustomerSerializer
 
-    # def perform_create(self, serializer):
-    #     return serializer.save(user=self.request.user)
+    def perform_create(self, serializer):
+        return serializer.save(user=self.request.user)
 
 class CustomerRUDApiView(generics.RetrieveUpdateDestroyAPIView):
     queryset=Customer.objects.all()

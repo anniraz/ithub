@@ -1,13 +1,8 @@
 from django.urls import path
-from . import views
+from .views import * 
 urlpatterns = [
-    path('chat/',views.ChatApiView.as_view()),
-    path('chat/<int:pk>/',views.ChatDetailApiView.as_view())
-    # URL form : "/api/messages/1/2"
-    # path('api/messages/<int:sender>/<int:receiver>', views.message_list, name='message-detail'),  # For GET request.
-    # # URL form : "/api/messages/"
-    # path('api/messages/', views.message_list, name='message-list'),   # For POST
-    # # URL form "/api/users/1"
-    # path('api/users/<int:pk>', views.user_list, name='user-detail'),      # GET request for user with id
-    # path('api/users/', views.user_list, name='user-list'),    # POST for new user and GET for all users list
+    path('my_sends/',ChatApiView.as_view()),
+    # path('chat/<int:pk>/',ChatDetailApiView.as_view()),
+    path('to_me/',ChatToMeApiView.as_view()),
+   
 ]

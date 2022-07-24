@@ -11,13 +11,13 @@ class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
         model=Customer
         fields='__all__'
-        # read_only_fields=('user',)
+        read_only_fields=('user',)
 
 class DeveloperSerializer(serializers.ModelSerializer):
     class Meta:
         model=Developer
         fields='__all__'
-        # read_only_fields=('user',)
+        read_only_fields=('user',)
 
 
 

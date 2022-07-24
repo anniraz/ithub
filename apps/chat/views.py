@@ -5,8 +5,8 @@ from django.http.response import JsonResponse
 from rest_framework.response import Response
 
 
-from .models import *
-from .serializers import *
+from apps.chat.models import *
+from apps.chat.serializers import MessageSerializer
 
 class ChatApiView(generics.ListCreateAPIView):
     serializer_class=MessageSerializer
@@ -32,6 +32,13 @@ class ChatDetailApiView(generics.RetrieveUpdateDestroyAPIView):
         return Response(chat_serial)
         
 
+class ChatToMeApiView(generics.ListAPIView):
+    serializer_class=MessageSerializer
+
+
+    def get_queryset(self):
+        user=self.request.user
+        return Message.objects.filter(receiver=user)
 
 
 
