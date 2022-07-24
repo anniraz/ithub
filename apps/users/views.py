@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate,login
+from django.contrib.auth import authenticate,login,logout
 from rest_framework import status
 
 
@@ -39,6 +39,8 @@ class UserLoginApiView(generics.CreateAPIView):
     serializer_class=LoginSerializer
     queryset=User.objects.all()
 
+    
+
     def post(self, request, *args, **kwargs):
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -48,12 +50,11 @@ class UserLoginApiView(generics.CreateAPIView):
                 login(request, user)
 
                 return Response(status=status.HTTP_201_CREATED)
-        # return super().post(request, *args, **kwargs)
+            else:
+                return Response({'error':'user is not active'})
+        else:
+            return Response({'error':'user is None'})
 
-    # def create(self, request, *args, **kwargs):
-        
-
-    #     return super().create(request, *args, **kwargs)
 class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = UserSerializer
     queryset = User.objects.all()
