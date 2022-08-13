@@ -22,11 +22,12 @@ class Direction(models.Model):
         verbose_name= 'Направление'
 
 class User(AbstractUser):
+    
     CHOICES = (
         ('Developer', 'Developer'),
         ('Customer', 'Customer'),
     )
-    email=models.EmailField( blank=True,null=True)
+    email=models.EmailField( blank=True,null=True,unique=True)
     
     
     REQUIRED_FIELDS=['email']
