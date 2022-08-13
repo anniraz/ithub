@@ -30,6 +30,13 @@ class MyOrdersListApiView(generics.ListAPIView):
         user=self.request.user
         return Order.objects.filter(user=user)
 
+class OrdersToMeListApiView(generics.ListAPIView):
+    serializer_class=OrderSerializer
+
+    def get_queryset(self):
+        user=self.request.user
+        return Order.objects.filter(to_user=user)
+
 class MyOrdersRUDApiView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class=OrderSerializer
 
