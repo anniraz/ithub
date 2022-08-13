@@ -10,21 +10,33 @@ class FilterReviewSerializer(serializers.ListSerializer):
 class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
         model=Customer
-        fields='__all__'
-        read_only_fields=('user',)
+        fields=['user','from_choice']
+        # read_only_fields=('user',)
 
 class DeveloperSerializer(serializers.ModelSerializer):
     class Meta:
-        model=Developer
-        fields='__all__'
-        read_only_fields=('user',)
 
+        model=Developer
+        fields=['user','direction','level','about']
+        # read_only_fields=('user',)
+
+
+
+class DeveloperInfoSerializer(serializers.ModelSerializer):
+    class Meta:
+
+        model=Developer
+        fields=('user','direction','level','about')
 
 class LoginSerializer(serializers.ModelSerializer):
      class Meta:
          model=User
          fields=('username','password') 
-   
+
+class LogoutSerializer(serializers.ModelSerializer):
+     class Meta:
+         model=User
+         fields=()    
 
 
 class RecursiveSerializer(serializers.Serializer):
@@ -54,19 +66,33 @@ class RatingSerializers(serializers.ModelSerializer):
 
 
 
-class UserSerializer(serializers.ModelSerializer):
+
+
+class AdditionalSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Additional_info
+        fields = ['id','user','first_name','last_name','image','phone','description']
+
+
+class UserSerializerList(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id','email','username','first_name','last_name','image','group','password','reviews_to_user']
+        fields = ['id','email','username','developer','customer','password','user_info','reviews_to_user']
     
-    # developer=DeveloperSerializer(many=True,read_only=True)
-    # customer=CustomerSerializer(many=True,read_only=True)
+    developer=DeveloperInfoSerializer(many=True,read_only=True)
+    customer=CustomerSerializer(many=True,read_only=True)
     reviews_to_user=ReviewSerializer(many=True,read_only=True)
+    user_info=AdditionalSerializer(many=True,read_only=True)
 
     def create(self, validated_data):
         user = super().create(validated_data)
         password = validated_data['password']
         user.set_password(password)
+        print('sdfghjkltfuyfuyguygDFGHJKJHGFDFGHJKL')
         user.save()
         return user
+
+
+
+
 

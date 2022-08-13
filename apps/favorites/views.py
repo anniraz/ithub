@@ -6,7 +6,7 @@ from apps.favorites.serializers import FavoriteSerializer
 
 # from ...permissions import *
 
-class FavoriteApiViewSet(viewsets.ModelViewSet):
+class FavoriteApiViewSet(generics.ListCreateAPIView):
     queryset=Favorite.objects.all()
     serializer_class=FavoriteSerializer
     permission_classes=(IsAuthenticatedOrReadOnly,)

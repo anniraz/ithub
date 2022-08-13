@@ -41,10 +41,11 @@ class MyOrdersRUDApiView(generics.RetrieveUpdateDestroyAPIView):
 
 class MyOrdersCountApiView(generics.ListAPIView):
     serializer_class=OrderSerializer
+    queryset=Order.objects.all()
 
     def get(self, request, *args, **kwargs):
         user=self.request.user
-        order_count=Order.objects.filter(to_user=user).count()
+        order_count=Order.objects.filter(   user=user).count()
         return Response({'My orders count':order_count})
 
 

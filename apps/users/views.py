@@ -1,69 +1,37 @@
-from django.contrib.auth import authenticate,login,logout
-from rest_framework import status
-
-
 from rest_framework.response import Response
+from rest_framework import generics,filters,permissions
+
 from django_filters import rest_framework as filter
 from .service import Paginations, ProductFilter
 from .permissions import *
 
-# Create your views here.
-from rest_framework import viewsets,generics,filters
 
 from .models import *
 from .serializers import *
 
 
-class UserAPIView(generics.ListCreateAPIView):
-    serializer_class = UserSerializer
+class UserAPIView(generics.ListAPIView):
+    serializer_class = UserSerializerList
     queryset = User.objects.all()
     filter_backends = (filter.DjangoFilterBackend,filters.OrderingFilter)
     filterset_class=ProductFilter
     search_fields = [ 'username']
     pagination_class=Paginations
+    permission_classes=[permissions.IsAuthenticatedOrReadOnly]
 
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
-        new_user = authenticate(username=request.POST.get('username'),
-            password=request.POST.get('password'),
-            )
-        if new_user is not None:
-            if new_user.is_active:
-                login(request, new_user)
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
 
-class UserLoginApiView(generics.CreateAPIView):
-    serializer_class=LoginSerializer
-    queryset=User.objects.all()
-
-    
-
-    def post(self, request, *args, **kwargs):
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            if user.is_active:
-                login(request, user)
-
-                return Response(status=status.HTTP_201_CREATED)
-            else:
-                return Response({'error':'user is not active'})
-        else:
-            return Response({'error':'user is None'})
 
 class UserDetail(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = UserSerializer
+    serializer_class = UserSerializerList
     queryset = User.objects.all()
     permission_classes=[IsOwnerOrReadOnly]
 
     def get(self, request, *args, **kwargs):
         pk = kwargs.get('pk', None)
         user = User.objects.get(id=pk)
-        user_serial = UserSerializer(user).data
+        user_serial = UserSerializerList(user).data
         reviews = Reviews.objects.filter(auth_id = pk)
         lst = []
         for i in reviews:
@@ -114,6 +82,7 @@ class CustomerRUDApiView(generics.RetrieveUpdateDestroyAPIView):
 class ReviewCreateView(generics.ListCreateAPIView):
     queryset=Reviews.objects.all()
     serializer_class=ReviewCreateSerializer
+    permission_classes=[permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
         return serializer.save(auth=self.request.user)
