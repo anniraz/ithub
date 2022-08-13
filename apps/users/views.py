@@ -47,7 +47,19 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
 
         return Response(user_serial)
 
+class AdditionalInfoApiView(generics.ListCreateAPIView):
+    queryset=Additional_info.objects.all()
+    serializer_class=AdditionalInfoSerializer
 
+    def perform_create(self, serializer):
+        return serializer.save(user=self.request.user)
+
+class AdditionalInfoRUDApiView(generics.RetrieveUpdateDestroyAPIView):
+    queryset=Additional_info.objects.all()
+    serializer_class=AdditionalInfoSerializer
+
+    def perform_create(self, serializer):
+        return serializer.save(user=self.request.user)
 
 class DeveloperApiView(generics.ListCreateAPIView):
     queryset=Developer.objects.all()

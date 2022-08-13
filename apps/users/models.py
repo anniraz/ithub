@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from django.core.validators import MinValueValidator, MaxValueValidator
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 # from django.contrib.auth.models import User
@@ -22,7 +21,7 @@ class Direction(models.Model):
         verbose_name= 'Направление'
 
 class User(AbstractUser):
-    
+
     CHOICES = (
         ('Developer', 'Developer'),
         ('Customer', 'Customer'),
@@ -46,7 +45,7 @@ class Additional_info(models.Model):
     first_name=models.CharField(max_length=50,verbose_name='Имя')
     last_name=models.CharField(max_length=50,verbose_name='Фамилия')
     image = models.ImageField(upload_to='profile_images/', null=True, blank=True, verbose_name='Аватарка')
-    phone = models.IntegerField(validators=[MinValueValidator(9), MaxValueValidator(12)], null=True, blank=True, verbose_name='Телефон')
+    phone = models.IntegerField(null=True, blank=True, verbose_name='Телефон')
     description=models.TextField()
 
     def __str__(self):

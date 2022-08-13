@@ -68,11 +68,17 @@ class RatingSerializers(serializers.ModelSerializer):
 
 
 
+class AdditionalInfoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Additional_info
+        fields = ['id','user','first_name','last_name','image','phone','description']
+        read_only_fields=('user',)
+
+
 class AdditionalSerializer(serializers.ModelSerializer):
     class Meta:
         model = Additional_info
         fields = ['id','user','first_name','last_name','image','phone','description']
-
 
 class UserSerializerList(serializers.ModelSerializer):
     class Meta:
@@ -88,7 +94,6 @@ class UserSerializerList(serializers.ModelSerializer):
         user = super().create(validated_data)
         password = validated_data['password']
         user.set_password(password)
-        print('sdfghjkltfuyfuyguygDFGHJKJHGFDFGHJKL')
         user.save()
         return user
 

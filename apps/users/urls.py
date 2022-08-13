@@ -7,6 +7,9 @@ from .views import *
 
 urlpatterns = [
     path('users/',UserAPIView.as_view()),
+    path('user/additional/info',AdditionalInfoApiView.as_view()),
+    path('user/additional/info/<int:pk>/',AdditionalInfoRUDApiView.as_view()),
+
     # path('user/',UserInfoAPIView.as_view()),
     path('users/developer/',DeveloperApiView.as_view()),
     path('users/developer/<int:pk>/',DeveloperApiView.as_view()),
@@ -17,10 +20,5 @@ urlpatterns = [
     path('users/detail/<int:pk>/',UserDetail.as_view()),
 
 
-    # path('user/login/',UserLoginApiView.as_view()),
-    # path('user/logout/',UserLogoutApiView.as_view()),
     path('review/',ReviewCreateView.as_view()),
-    # path('profile/',ProfileApiView.as_view()),
-
-
 ]
