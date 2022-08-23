@@ -17,10 +17,9 @@ class UserAPIView(generics.ListAPIView):
     filterset_class=ProductFilter
     search_fields = [ 'username']
     pagination_class=Paginations
-    permission_classes=[permissions.IsAuthenticatedOrReadOnly]
+    # permission_classes=[permissions.IsAuthenticatedOrReadOnly]
 
-    def get(self, request, *args, **kwargs):
-        return super().get(request, *args, **kwargs)
+
 
 
 class UserDetail(generics.RetrieveUpdateDestroyAPIView):

@@ -61,7 +61,7 @@ class Customer(models.Model):
     # user.customer = True
 
     def __str__(self):
-        return f'{self.user}{self.from_choice}'
+        return f'{self.user}'
 
     class Meta:
         verbose_name_plural = 'Заказчики'

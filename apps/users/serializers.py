@@ -28,15 +28,7 @@ class DeveloperInfoSerializer(serializers.ModelSerializer):
         model=Developer
         fields=('user','direction','level','about')
 
-class LoginSerializer(serializers.ModelSerializer):
-     class Meta:
-         model=User
-         fields=('username','password') 
 
-class LogoutSerializer(serializers.ModelSerializer):
-     class Meta:
-         model=User
-         fields=()    
 
 
 class RecursiveSerializer(serializers.Serializer):

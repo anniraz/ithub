@@ -4,6 +4,7 @@ from apps.orders.views import *
 
 
 urlpatterns = [
+    path('orders/create/',MakeOrdersListCreateApiView.as_view()),
     path('orders/',OrdersListCreateApiView.as_view()),
     path('orders/<int:pk>/',OrdersRetriveDestroyApiView.as_view()),
     path('myorders/',MyOrdersListApiView.as_view()),

@@ -25,25 +25,26 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # swagger
-    'drf_yasg',
 
     # drf
     'rest_framework',
     'rest_framework.authtoken',
     'djoser',
 
+    # swagger
+    'drf_yasg',
+
     # apps
     'apps.users',
     'apps.favorites',
-    'apps.chat',
+    # 'apps.chat',
     'apps.orders',
 
 
     # filter
     'django_filters',
     #  for chat
-    'widget_tweaks',
+    # 'widget_tweaks',
     # cors
     "corsheaders",
 
@@ -112,13 +113,14 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny'
-    ],
+    # 'DEFAULT_PERMISSION_CLASSES': [
+    #     'rest_framework.permissions.AllowAny'
+
+    # ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
-        'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
+        # 'rest_framework.authentication.BasicAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
     ],
 }
 
@@ -140,33 +142,33 @@ CORS_ORIGIN_ALLOW_ALL=True
 
 
 
-DJOSER = {
+# DJOSER = {
 
-    'PASSWORD_RESET_CONFIRM_URL': '#/password/reset/confirm/{uid}/{token}',
-    'USERNAME_RESET_CONFIRM_URL': '#/username/reset/confirm/{uid}/{token}',
-    'ACTIVATION_URL': '#/activate/{uid}/{token}',
-    'SEND_ACTIVATION_EMAIL': True,
-    'PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND': True,
-    'PASSWORD_RESET_CONFIRM_RETYPE': True,
-    'SERIALIZERS': {
-        'password_reset': 'djoser.serializers.SendEmailResetSerializer',
-        'password_reset_confirm': 'djoser.serializers.PasswordResetConfirmSerializer',
-        'password_reset_confirm_retype': 'djoser.serializers.PasswordResetConfirmRetypeSerializer',
-        'set_password': 'djoser.serializers.SetPasswordSerializer',
-        'set_password_retype': 'djoser.serializers.SetPasswordRetypeSerializer',
-        'current_user': 'djoser.serializers.UserSerializer',
-        'set_username': 'djoser.serializers.SetUsernameSerializer',
-        'set_username_retype': 'djoser.serializers.SetUsernameRetypeSerializer',
-        'username_reset': 'djoser.serializers.SendEmailResetSerializer',
-        'username_reset_confirm': 'djoser.serializers.UsernameResetConfirmSerializer',
-        'username_reset_confirm_retype': 'djoser.serializers.UsernameResetConfirmRetypeSerializer',
-    },
-    'PERMISSIONS': {
-                                                                                                             'user': ['djoser.permissions.CurrentUserOrAdminOrReadOnly']
+#     'PASSWORD_RESET_CONFIRM_URL': '#/password/reset/confirm/{uid}/{token}',
+#     'USERNAME_RESET_CONFIRM_URL': '#/username/reset/confirm/{uid}/{token}',
+#     'ACTIVATION_URL': '#/activate/{uid}/{token}',
+#     'SEND_ACTIVATION_EMAIL': True,
+#     'PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND': True,
+#     'PASSWORD_RESET_CONFIRM_RETYPE': True,
+#     'SERIALIZERS': {
+#         'password_reset': 'djoser.serializers.SendEmailResetSerializer',
+#         'password_reset_confirm': 'djoser.serializers.PasswordResetConfirmSerializer',
+#         'password_reset_confirm_retype': 'djoser.serializers.PasswordResetConfirmRetypeSerializer',
+#         'set_password': 'djoser.serializers.SetPasswordSerializer',
+#         'set_password_retype': 'djoser.serializers.SetPasswordRetypeSerializer',
+#         'current_user': 'djoser.serializers.UserSerializer',
+#         'set_username': 'djoser.serializers.SetUsernameSerializer',
+#         'set_username_retype': 'djoser.serializers.SetUsernameRetypeSerializer',
+#         'username_reset': 'djoser.serializers.SendEmailResetSerializer',
+#         'username_reset_confirm': 'djoser.serializers.UsernameResetConfirmSerializer',
+#         'username_reset_confirm_retype': 'djoser.serializers.UsernameResetConfirmRetypeSerializer',
+#     },
+#     'PERMISSIONS': {
+#              'user': ['djoser.permissions.CurrentUserOrAdminOrReadOnly']
 
 
-    }
-}
+#     }
+# }
 
 
 

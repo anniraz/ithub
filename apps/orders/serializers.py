@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from apps.orders.models import Order
+from apps.orders.models import Order,MakeOrder
 
 class OrderSerializer(serializers.ModelSerializer):
     # location = serializers.SerializerMethodField('get_alternate_name')
@@ -19,4 +19,11 @@ class OrderSerializer(serializers.ModelSerializer):
     #     return obj.alternate_name
 
 
+
+class MakeOrderSerializer(serializers.ModelSerializer):
+    # location = serializers.SerializerMethodField('get_alternate_name')
+    class Meta:
+        model =MakeOrder
+        fields = '__all__'
+        read_only_fields = ("id", 'user',)
 
